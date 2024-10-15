@@ -1,28 +1,33 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { StyleSheet, Image, Platform } from 'react-native';
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
+import { Image, StyleSheet, Platform } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
-export default function TabTwoScreen() {
+
+
+export default function HomeScreen() {
   return (
-      <ThemedView>
-        <ThemedText>REPORT BUG</ThemedText>
-        
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText  style={styles.text} >REPORT BUG</ThemedText>
       </ThemedView>
+    
   );
 }
-
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
-  },
   titleContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
     gap: 8,
+  },
+  stepContainer: {
+    backgroundColor:'black',
+    gap: 8,
+    marginBottom: 8,
+    padding:5,
+  },
+  text: {
+    color:'white',
+    fontFamily: 'sans-serif',
+    fontWeight:'bold',
+    fontSize: 20,
   },
 });

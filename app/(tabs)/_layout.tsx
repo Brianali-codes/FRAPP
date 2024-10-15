@@ -19,16 +19,7 @@ export default function TabLayout() {
         options={{
           title: 'Giveaways',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'game-controller' : 'game-controller-outline'} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="sort"
-        options={{
-          title: 'Sort',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'filter-circle' : 'filter-circle-outline'} color={color} />
+            <TabBarIcon name={focused ? 'gift-sharp' : 'gift-outline'} color={color} />
           ),
         }}
       />
@@ -37,7 +28,7 @@ export default function TabLayout() {
         options={{
           title: 'Free',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'play-circle' : 'play-circle-outline'} color={color} />
+            <TabBarIcon name={focused ? 'game-controller' : 'game-controller-outline'} color={color} />
           ),
         }}
       />
