@@ -1,9 +1,10 @@
-import { ScrollView, StyleSheet, Image } from 'react-native'; // Import Image component from React Native
+import { ScrollView, StyleSheet, Image } from 'react-native'; 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { useState, useEffect } from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Button } from 'react-native-paper';
+import Card from 'react-native-paper';
 
 interface Giveaway {
   id: number;
@@ -55,7 +56,9 @@ export default function HomeScreen() {
               <ThemedText style={styles.giveawayText}>
                 {giveaway.description}
               </ThemedText>
-              <a href={giveaway.open_giveaway_url}><TouchableOpacity style={styles.text}>Get Giveaway</TouchableOpacity></a>
+              <a href={giveaway.open_giveaway_url}>
+                <Button mode="contained">Get Giveaway</Button>
+              </a>
             </ThemedView>
           ))
         )}
@@ -101,3 +104,4 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
+
