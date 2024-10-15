@@ -3,12 +3,14 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { useState, useEffect } from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface Giveaway {
   id: number;
   title: string;
-  thumbnail: string; // Add other fields as needed
+  thumbnail: string; 
   description: string;
+  open_giveaway_url : string; 
 }
 
 export default function HomeScreen() {
@@ -53,6 +55,7 @@ export default function HomeScreen() {
               <ThemedText style={styles.giveawayText}>
                 {giveaway.description}
               </ThemedText>
+              <a href={giveaway.open_giveaway_url}><TouchableOpacity style={styles.text}>Get Giveaway</TouchableOpacity></a>
             </ThemedView>
           ))
         )}
