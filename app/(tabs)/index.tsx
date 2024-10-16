@@ -5,13 +5,19 @@ import { useState, useEffect } from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Button } from 'react-native-paper';
 import Card from 'react-native-paper';
+import { Linking } from 'react-native';
 
+
+//initital type highliting for better error handling thanks to typescript.
 interface Giveaway {
   id: number;
   title: string;
   thumbnail: string; 
+  image:string;
   description: string;
   open_giveaway_url : string; 
+  open_giveaway:string;
+  worth:string;
 }
 
 export default function HomeScreen() {
@@ -41,7 +47,8 @@ export default function HomeScreen() {
   return (
     <ThemedView style={styles.container}>
       <ThemedText style={styles.text}>
-        <TabBarIcon name={'game-controller'} />GIVEAWAYS
+        <TabBarIcon name={'gift-sharp'} style={styles.icons}/>
+        GIVEAWAYS
       </ThemedText>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {isLoading ? (
@@ -51,15 +58,18 @@ export default function HomeScreen() {
             <ThemedView key={giveaway.id} style={styles.cards}>
               <ThemedText style={styles.text}>
                 {giveaway.title}
-              </ThemedText>
-              
-              <img src={giveaway.thumbnail} alt="Thumbnails" />
+              </ThemedText>  
+              <Image source={{ uri: giveaway.thumbnail }} style={styles.cardImage} />
               <ThemedText style={styles.giveawayText}>
                 {giveaway.description}
               </ThemedText>
-              <a href={giveaway.open_giveaway_url}>
-                <Button mode="contained">Get Giveaway</Button>
-              </a>
+              <ThemedText style={styles.worth}>
+                {giveaway.worth}
+              </ThemedText>
+              <br />
+                <Button mode="contained"
+                  onPress={() => Linking.openURL(giveaway.open_giveaway_url || giveaway.open_giveaway)}
+                >Get Giveaway</Button>
             </ThemedView>
           ))
         )}
@@ -70,25 +80,49 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Take full screen height
-    backgroundColor: '#5c5c5c',
+    flex: 1, // Takes the full screen height to enable scrolling.
+    backgroundColor: '#1b2838',
     padding: 10,
   },
   text: {
     color: 'white',
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 25,
     marginBottom: 10,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    padding:5,
+    gap:5,
   },
   cards: {
     borderColor: 'white',
-    backgroundColor: '#5c5c5c',
-    marginBottom: 20,
+    backgroundColor: '#2C415A',
+    marginBottom: 10,
+    borderRadius: 7,
+    elevation: 5, // Shadow for Android
+    shadowColor: '#000', // Shadow for iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25, 
+    shadowRadius: 3.84, 
+    marginVertical: 5,
+    marginHorizontal: 5,
+    padding:20,
+  },
+  cardImage: {
+    width: '100%',
+    height: 200,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+  },
+  worth:{
+    textDecorationLine:'line-through',
+    color:'white',
+  },
+  icons: {
+    marginBottom: 4,
   },
   scrollViewContent: {
     paddingBottom: 20, // Space at the bottom of the scrollable content
