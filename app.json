@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "guap",
-    "slug": "guap",
+    "slug": "frapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -31,6 +31,12 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "bed2872c-b190-41f5-8730-e09e74f19f4c"
+      }
+    },
+    "owner": "brianali"
   }
 }
