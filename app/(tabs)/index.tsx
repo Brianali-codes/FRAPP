@@ -5,9 +5,9 @@ import { useState, useEffect } from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Button } from 'react-native-paper';
 import { Linking } from 'react-native';
-
-
+import { Skeleton } from '@rneui/themed';
 //initital type highliting for better error handling thanks to typescript.
+
 interface Giveaway {
   id: number;
   title: string;
@@ -50,9 +50,15 @@ export default function HomeScreen() {
       </ThemedText>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {isLoading ? (
-          <ThemedText>Loading...</ThemedText>
+            <>
+              <Skeleton animation="pulse" style={styles.skeletonImage}/>
+              <Skeleton animation="pulse" style={styles.skeletonImage}/>
+              <Skeleton animation="pulse" style={styles.skeletonImage}/>
+            </>
         ) : (
           giveaways.map(giveaway => (
+            <>
+            
             <ThemedView key={giveaway.id} style={styles.cards}>
               <ThemedText style={styles.text}>
                 {giveaway.title}
@@ -68,6 +74,7 @@ export default function HomeScreen() {
                   onPress={() => Linking.openURL(giveaway.open_giveaway_url || giveaway.open_giveaway)}
                 >Get Giveaway</Button>
             </ThemedView>
+            </>
           ))
         )}
       </ScrollView>
@@ -93,6 +100,11 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     padding:5,
     gap:5,
+  },
+  skeletonImage:{
+    width:'100%',
+    height:300,
+    borderRadius:10,
   },
   cards: {
     borderColor: 'white',
