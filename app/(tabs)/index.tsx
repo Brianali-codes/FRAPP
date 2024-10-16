@@ -52,6 +52,7 @@ export default function HomeScreen() {
               <ThemedText style={styles.text}>
                 {giveaway.title}
               </ThemedText>
+              
               <img src={giveaway.thumbnail} alt="Thumbnails" />
               <ThemedText style={styles.giveawayText}>
                 {giveaway.description}
@@ -70,7 +71,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1, // Take full screen height
-    backgroundColor: 'black',
+    backgroundColor: '#5c5c5c',
     padding: 10,
   },
   text: {
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
   },
   cards: {
     borderColor: 'white',
-    backgroundColor: 'black',
+    backgroundColor: '#5c5c5c',
     marginBottom: 20,
   },
   scrollViewContent: {
