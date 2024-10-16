@@ -4,6 +4,7 @@ import { ThemedView } from '@/components/ThemedView';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
+
 export default function HomeScreen() {
   return (
       <ThemedView style={styles.stepContainer}>
@@ -36,5 +37,6 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     paddingBottom: 20, // Space at the bottom of the scrollable content
     gap: 10,
+    backgroundColor:'#1b2838',
   },
 });

@@ -4,7 +4,6 @@ import { ThemedView } from '@/components/ThemedView';
 import { useState, useEffect } from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Button } from 'react-native-paper';
-import Card from 'react-native-paper';
 import { Linking } from 'react-native';
 
 
@@ -32,7 +31,6 @@ export default function HomeScreen() {
       const finalData: Giveaway[] = await response.json();
       setGiveaways(finalData);
       setIsLoading(false);
-      console.log(finalData);
     } catch (error) {
       console.error('Error fetching data:', error);
       setIsLoading(false);
@@ -66,7 +64,6 @@ export default function HomeScreen() {
               <ThemedText style={styles.worth}>
                 {giveaway.worth}
               </ThemedText>
-              <br />
                 <Button mode="contained"
                   onPress={() => Linking.openURL(giveaway.open_giveaway_url || giveaway.open_giveaway)}
                 >Get Giveaway</Button>

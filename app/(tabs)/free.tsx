@@ -4,21 +4,6 @@ import { ThemedView } from '@/components/ThemedView';
 import { useEffect, useState } from 'react';
 
 
-const [argument, setArgument] = useState('')
-const url = `corsproxy.io/?https://www.freetogame.com/api/games`
-
-    const fetchGames = async ()=>{
-      const response = await fetch(url)
-      const res = await response.json()
-      setArgument(res)
-      console.log(res)
-      }
-  useEffect(()=>{
-    fetchGames()
-  }),
-  ([])
-
-
 
 export default function HomeScreen() {
   return (
