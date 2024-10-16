@@ -8,7 +8,7 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/FRAPP_ICON.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -40,5 +40,6 @@
       }
     },
     "owner": "brianali"
+    
   }
 }
