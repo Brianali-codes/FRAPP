@@ -20,6 +20,7 @@ export default function HomeScreen() {
           >Star Us</Button>
         </ScrollView>
         
+        
       </ThemedView>
     
   );

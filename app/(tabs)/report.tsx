@@ -56,7 +56,7 @@ export default function HomeScreen() {
         <TabBarIcon name={'bug'} style={styles.icons}/>
         REPORT BUG
       </ThemedText>
-        <ScrollView style={styles.scrollContainer}>
+        <ScrollView style={styles.scrollViewContent}>
             <ThemedText style={styles.text2}>Having Trouble with the App? or have you noticed some bugs in the application? please file a report to let us know.</ThemedText>
             <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
             <TextInput
@@ -128,10 +128,11 @@ const styles = StyleSheet.create({
   text2: {
     color:'white',
   },
-  scrollContainer:{
+  scrollViewContent: {
+    paddingBottom: 20, // Space at the bottom of the scrollable content
+    gap: 10,
     padding:5,
     margin:5,
-    gap:10,
     display:'flex',
     flexDirection:'column',
     backgroundColor: '#1b2838',
