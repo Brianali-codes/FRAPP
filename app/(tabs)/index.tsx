@@ -8,7 +8,7 @@ import { Linking } from 'react-native';
 import { Alert } from 'react-native';
 import notifee, { AndroidImportance, TriggerType,AuthorizationStatus } from '@notifee/react-native';
 import { Divider } from 'react-native-elements';
-import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+import { Skeleton } from '@rneui/base';
  
 
 
@@ -106,7 +106,12 @@ export default function HomeScreen() {
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {isLoading ? (
             <>
-            <ActivityIndicator animating={true} color={MD2Colors.purple200} />
+              <Skeleton animation="pulse" style={styles.skeletonImage}/>
+              <Skeleton animation="wave" style={styles.skeletonImage2}/>
+              <Skeleton animation="wave" style={styles.skeletonImage2}/>
+              <Skeleton animation="wave" style={styles.skeletonImage2}/>
+              <Skeleton animation="pulse" style={styles.skeletonImage}/>
+              <Skeleton animation="wave" style={styles.skeletonImage2}/>
             </>
         ) : (
           giveaways.map(giveaway => (
@@ -154,6 +159,16 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     padding:5,
     gap:3,
+  },
+  skeletonImage:{
+    width:'100%',
+    height:300,
+    borderRadius:10,
+  },
+  skeletonImage2:{
+    width:'100%',
+    height:50,
+    borderRadius:10,
   },
   cards: {
     borderColor: 'white',
