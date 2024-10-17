@@ -5,12 +5,11 @@ import { useState, useEffect } from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Button } from 'react-native-paper';
 import { Linking } from 'react-native';
-import { Skeleton } from '@rneui/themed';
 import { Alert } from 'react-native';
 import notifee, { AndroidImportance, TriggerType,AuthorizationStatus } from '@notifee/react-native';
-
-
-
+import { Divider } from 'react-native-elements';
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+ 
 
 
 
@@ -107,27 +106,23 @@ export default function HomeScreen() {
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {isLoading ? (
             <>
-              <Skeleton animation="pulse" style={styles.skeletonImage}/>
-              <Skeleton animation="wave" style={styles.skeletonImage2}/>
-              <Skeleton animation="wave" style={styles.skeletonImage2}/>
-              <Skeleton animation="pulse" style={styles.skeletonImage}/>
-              <Skeleton animation="wave" style={styles.skeletonImage2}/>
-              <Skeleton animation="wave" style={styles.skeletonImage2}/>
+            <ActivityIndicator animating={true} color={MD2Colors.purple200} />
             </>
         ) : (
           giveaways.map(giveaway => (
             <>
-            
             <ThemedView key={giveaway.id} style={styles.cards}>
               <ThemedText key={giveaway.title} style={styles.text}>
                 {giveaway.title}
               </ThemedText>  
               <Image source={{ uri: giveaway.thumbnail }} style={styles.cardImage} key={giveaway.thumbnail} />
+              <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
               <ThemedText style={styles.giveawayText} key={giveaway.description}>
                 {giveaway.description}
               </ThemedText>
               <ThemedText style={styles.worth} key={giveaway.worth}>
                 {giveaway.worth}
+              <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
               </ThemedText>
                 <Button mode="contained"
                   onPress={() => Linking.openURL(giveaway.open_giveaway_url || giveaway.open_giveaway)}
@@ -159,16 +154,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     padding:5,
     gap:3,
-  },
-  skeletonImage:{
-    width:'100%',
-    height:300,
-    borderRadius:10,
-  },
-  skeletonImage2:{
-    width:'100%',
-    height:50,
-    borderRadius:10,
   },
   cards: {
     borderColor: 'white',

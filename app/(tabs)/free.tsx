@@ -55,8 +55,11 @@ export default function HomeScreen() {
         {isLoading ? (
             <>
               <Skeleton animation="pulse" style={styles.skeletonImage}/>
+              <Skeleton animation="wave" style={styles.skeletonImage2}/>
+              <Skeleton animation="wave" style={styles.skeletonImage2}/>
+              <Skeleton animation="wave" style={styles.skeletonImage2}/>
               <Skeleton animation="pulse" style={styles.skeletonImage}/>
-              <Skeleton animation="pulse" style={styles.skeletonImage}/>
+              <Skeleton animation="wave" style={styles.skeletonImage2}/>
             </>
         ) : (
           giveaways.map(giveaway => (
@@ -104,6 +107,11 @@ const styles = StyleSheet.create({
   skeletonImage:{
     width:'100%',
     height:300,
+    borderRadius:10,
+  },
+  skeletonImage2:{
+    width:'100%',
+    height:50,
     borderRadius:10,
   },
   cards: {
