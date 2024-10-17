@@ -8,7 +8,7 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/FRAPP_ICON.png",
+      "image": "./assets/images/FRAPP_ICON.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -36,10 +36,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "bed2872c-b190-41f5-8730-e09e74f19f4c"
+        "projectId": "f920ee81-201f-4f1a-9f61-15134061216c"
       }
     },
     "owner": "brianali"
-    
   }
 }

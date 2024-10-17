@@ -6,6 +6,7 @@ import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Button } from 'react-native-paper';
 import { Linking } from 'react-native';
 import { Skeleton } from '@rneui/themed';
+import { Alert } from 'react-native';
 //initital type highliting for better error handling thanks to typescript.
 
 interface Giveaway {
@@ -35,6 +36,7 @@ export default function HomeScreen() {
     } catch (error) {
       console.error('Error fetching data:', error);
       setIsLoading(false);
+      Alert.alert('Unable to fetch games check your connection or relaunch the app.');
     }
   };
 
@@ -47,7 +49,7 @@ export default function HomeScreen() {
     <ThemedView style={styles.container}>
       <ThemedText style={styles.text}>
         <TabBarIcon name={'gift-sharp'} style={styles.icons}/>
-        GIVEAWAYS
+        FREE GAMES
       </ThemedText>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {isLoading ? (
@@ -61,7 +63,7 @@ export default function HomeScreen() {
             <>
             
             <ThemedView key={giveaway.id} style={styles.cards}>
-              <ThemedText style={styles.text}>
+              <ThemedText style={styles.text} >
                 {giveaway.title}
               </ThemedText>  
               <Image source={{ uri: giveaway.thumbnail }} style={styles.cardImage} />
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
-    fontSize: 25,
+    fontSize: 15,
     marginBottom: 10,
     display: 'flex',
     flexDirection: 'row',
@@ -130,9 +132,10 @@ const styles = StyleSheet.create({
   },
   icons: {
     marginBottom: 4,
+    fontSize:21,
   },
   scrollViewContent: {
-    paddingBottom: 20, // Space at the bottom of the scrollable content
+    paddingBottom: 20, 
     gap: 10,
   },
   giveawayText: {

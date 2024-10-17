@@ -20,17 +20,34 @@ export default function HomeScreen() {
     
       const subject = encodeURIComponent('Bug Report');
       const body = encodeURIComponent(inputValue);
-      const mailtoLink = `mailto:gamingbruv34@gmail.com?subject=${subject}&body=${body}`;
     
-      Linking.canOpenURL(mailtoLink)
-        .then((supported) => {
-          if (supported) {
-            Linking.openURL(mailtoLink).catch(err => console.error('An error occurred', err));
-          } else {
-            Alert.alert('Error', 'Unable to open email client');
-          }
-        })
-        .catch((err) => console.error('An error occurred', err));
+      if (Platform.OS === 'android') {
+        // Using Intent for Android
+        const emailIntent = `mailto:?to=gamingbruv34@gmail.com&subject=${subject}&body=${body}`;
+        Linking.canOpenURL(emailIntent)
+          .then((supported) => {
+            if (supported) {
+              Linking.openURL(emailIntent)
+                .catch(err => console.error('An error occurred', err));
+            } else {
+              Alert.alert('Error', 'No email app available');
+            }
+          })
+          .catch(err => console.error('An error occurred', err));
+      } else {
+        // For iOS
+        const mailtoLink = `mailto:gamingbruv34@gmail.com?subject=${subject}&body=${body}`;
+        Linking.canOpenURL(mailtoLink)
+          .then((supported) => {
+            if (supported) {
+              Linking.openURL(mailtoLink)
+                .catch(err => console.error('An error occurred', err));
+            } else {
+              Alert.alert('Error', 'No email app available');
+            }
+          })
+          .catch(err => console.error('An error occurred', err));
+      }
     };
     
   return (
@@ -61,41 +78,13 @@ export default function HomeScreen() {
             <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
             <ThemedText style={styles.text2}>if you have a more detailed report you can file an issue at the github repository and feedback will be provided as soon as possible.</ThemedText>
             <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
+            <ThemedText style={styles.text2}>This Project is open source and can be found on github if you encounter any issues or have ideas for improving the app please do so by going to the github repository and create a new issue.</ThemedText>
+            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
             <Button mode="contained"onPress={() => Linking.openURL('https://github.com/Brianali-codes/FRAPP')}>
               Go to the Github page
             </Button>
             <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
+            <ThemedText style={styles.text2}>This Project utilizes the gamepower Api as well as the Free To Game Api for fetching data and dynamically providing it to the user who downloaded the app. this is to declare that none of these APis belong to me as well as FRAPP.</ThemedText>
             <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
             <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
             <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
@@ -117,13 +106,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#1b2838',
     gap: 8,
     marginBottom: 8,
-    padding:5,
+    padding:10,
   },
   text: {
     color: 'white',
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
-    fontSize: 25,
+    fontSize: 15,
     marginBottom: 10,
     display: 'flex',
     flexDirection: 'row',
@@ -133,7 +122,8 @@ const styles = StyleSheet.create({
     gap:5,
   },
   icons: {
-    marginBottom: 3,
+    marginBottom: 4,
+    fontSize:21,
   },
   text2: {
     color:'white',

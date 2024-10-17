@@ -6,7 +6,58 @@ import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Button } from 'react-native-paper';
 import { Linking } from 'react-native';
 import { Skeleton } from '@rneui/themed';
-//initital type highliting for better error handling thanks to typescript.
+import { Alert } from 'react-native';
+import notifee, { AndroidImportance, TriggerType,AuthorizationStatus } from '@notifee/react-native';
+
+
+
+
+
+
+const NOTIFICATIONS = async() => {
+
+    await notifee.createChannel({
+      id: 'default',
+      name: 'Default Channel',
+      importance: AndroidImportance.HIGH,
+    });
+
+    const now = new Date();
+    const nextTriggerTime = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 9, 0, 0); // Set to 9 AM the next day
+
+    // Schedule the notification
+    await notifee.createTriggerNotification(
+      {
+        title: 'FRAPP',
+        body: 'Check out todays giveaways.',
+        android: {
+          channelId: 'default',
+        },
+      },
+      {
+        type: TriggerType.TIMESTAMP,
+        timestamp: nextTriggerTime.getTime(), 
+      }
+    );
+
+    console.log('Daily notification scheduled for 9 AM tomorrow');
+  };
+const checkNotificationPermission = async () => {
+  const settings = await notifee.requestPermission();
+
+  // Check the authorization status from the returned settings
+  if (settings.authorizationStatus === AuthorizationStatus.AUTHORIZED) {
+    console.log('Notification permissions granted.');
+    NOTIFICATIONS(); // Schedule notifications if permission granted
+  } else {
+    Alert.alert(
+      'Notifications Disabled',
+      'Please enable notifications in your settings to receive updates.',
+      [{ text: 'OK' }]
+    );
+  }
+};
+
 
 interface Giveaway {
   id: number;
@@ -25,6 +76,9 @@ export default function HomeScreen() {
   const [giveaways, setGiveaways] = useState<Giveaway[]>([]); // Define state with type
   const url = 'https://corsproxy.io/?https://www.gamerpower.com/api/giveaways';
 
+  
+
+
   const fetchData = async () => {
     try {
       const response = await fetch(url);
@@ -34,12 +88,14 @@ export default function HomeScreen() {
     } catch (error) {
       console.error('Error fetching data:', error);
       setIsLoading(false);
+      Alert.alert('Unable to fetch giveaways check your connection or relaunch the app.');
     }
   };
 
   // Use useEffect to fetch data on component mount
   useEffect(() => {
     fetchData();
+    checkNotificationPermission()
   }, []);
 
   return (
@@ -60,19 +116,19 @@ export default function HomeScreen() {
             <>
             
             <ThemedView key={giveaway.id} style={styles.cards}>
-              <ThemedText style={styles.text}>
+              <ThemedText key={giveaway.title} style={styles.text}>
                 {giveaway.title}
               </ThemedText>  
-              <Image source={{ uri: giveaway.thumbnail }} style={styles.cardImage} />
-              <ThemedText style={styles.giveawayText}>
+              <Image source={{ uri: giveaway.thumbnail }} style={styles.cardImage} key={giveaway.thumbnail} />
+              <ThemedText style={styles.giveawayText} key={giveaway.description}>
                 {giveaway.description}
               </ThemedText>
-              <ThemedText style={styles.worth}>
+              <ThemedText style={styles.worth} key={giveaway.worth}>
                 {giveaway.worth}
               </ThemedText>
                 <Button mode="contained"
                   onPress={() => Linking.openURL(giveaway.open_giveaway_url || giveaway.open_giveaway)}
-                >Get Giveaway</Button>
+                  key={giveaway.open_giveaway_url || giveaway.open_giveaway}>Get Giveaway</Button>
             </ThemedView>
             </>
           ))
@@ -92,14 +148,14 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
-    fontSize: 25,
+    fontSize: 15,
     marginBottom: 10,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
     padding:5,
-    gap:5,
+    gap:3,
   },
   skeletonImage:{
     width:'100%',
@@ -132,6 +188,7 @@ const styles = StyleSheet.create({
   },
   icons: {
     marginBottom: 4,
+    fontSize:21,
   },
   scrollViewContent: {
     paddingBottom: 20, // Space at the bottom of the scrollable content
