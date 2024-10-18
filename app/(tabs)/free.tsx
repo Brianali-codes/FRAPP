@@ -54,11 +54,11 @@ export default function HomeScreen() {
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {isLoading ? (
             <>
-              <Skeleton animation="pulse" style={styles.skeletonImage}/>
+              <Skeleton animation="wave" style={styles.skeletonImage}/>
               <Skeleton animation="wave" style={styles.skeletonImage2}/>
               <Skeleton animation="wave" style={styles.skeletonImage2}/>
               <Skeleton animation="wave" style={styles.skeletonImage2}/>
-              <Skeleton animation="pulse" style={styles.skeletonImage}/>
+              <Skeleton animation="wave" style={styles.skeletonImage}/>
               <Skeleton animation="wave" style={styles.skeletonImage2}/>
             </>
         ) : (

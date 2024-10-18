@@ -38,15 +38,12 @@ const NOTIFICATIONS = async() => {
         timestamp: nextTriggerTime.getTime(), 
       }
     );
-
-    console.log('Daily notification scheduled for 9 AM tomorrow');
   };
 const checkNotificationPermission = async () => {
   const settings = await notifee.requestPermission();
 
   // Check the authorization status from the returned settings
   if (settings.authorizationStatus === AuthorizationStatus.AUTHORIZED) {
-    console.log('Notification permissions granted.');
     NOTIFICATIONS(); // Schedule notifications if permission granted
   } else {
     Alert.alert(
@@ -85,7 +82,6 @@ export default function HomeScreen() {
       setGiveaways(finalData);
       setIsLoading(false);
     } catch (error) {
-      console.error('Error fetching data:', error);
       setIsLoading(false);
       Alert.alert('Unable to fetch giveaways check your connection or relaunch the app.');
     }
@@ -106,11 +102,11 @@ export default function HomeScreen() {
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {isLoading ? (
             <>
-              <Skeleton animation="pulse" style={styles.skeletonImage}/>
+              <Skeleton animation="wave" style={styles.skeletonImage}/>
               <Skeleton animation="wave" style={styles.skeletonImage2}/>
               <Skeleton animation="wave" style={styles.skeletonImage2}/>
               <Skeleton animation="wave" style={styles.skeletonImage2}/>
-              <Skeleton animation="pulse" style={styles.skeletonImage}/>
+              <Skeleton animation="wave" style={styles.skeletonImage}/>
               <Skeleton animation="wave" style={styles.skeletonImage2}/>
             </>
         ) : (
@@ -213,4 +209,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
+
+
 

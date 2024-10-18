@@ -18,15 +18,15 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/FRAPP_ICON.png",
+        "backgroundColor": "white"
       },
       "package": "com.brianali.frapp"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/FRAPP_ICON.png"
     },
     "plugins": [
       "expo-router"
