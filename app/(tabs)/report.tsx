@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 13,
     marginBottom: 10,
     display: 'flex',
     flexDirection: 'row',

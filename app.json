@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/images/FRAPP_ICON.png",
       "resizeMode": "contain",
-      "backgroundColor": "white"
+      "backgroundColor": "#ffffff"
     },
     "ios": {
       "supportsTablet": true,
@@ -19,7 +19,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/FRAPP_ICON.png",
-        "backgroundColor": "white"
+        "backgroundColor": "#ffffff"
       },
       "package": "com.brianali.frapp"
     },
@@ -36,7 +36,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "f920ee81-201f-4f1a-9f61-15134061216c"
+        "projectId": "a288d4ce-affe-48c6-b519-395c3619fbb9"
       }
     },
     "owner": "brianali"

@@ -9,6 +9,7 @@ import { Alert } from 'react-native';
 import notifee, { AndroidImportance, TriggerType,AuthorizationStatus } from '@notifee/react-native';
 import { Divider } from 'react-native-elements';
 import { Skeleton } from '@rneui/base';
+import { SafeAreaView } from 'react-native-safe-area-context';
  
 
 
@@ -95,10 +96,13 @@ export default function HomeScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText style={styles.text}>
-        <TabBarIcon name={'gift-sharp'} style={styles.icons}/>
-        GIVEAWAYS
-      </ThemedText>
+      <SafeAreaView>
+        <ThemedText style={styles.text}>
+          <TabBarIcon name={'gift-sharp'} style={styles.icons}/>
+          GIVEAWAYS
+        </ThemedText>
+      </SafeAreaView>
+      
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {isLoading ? (
             <>
@@ -113,7 +117,7 @@ export default function HomeScreen() {
           giveaways.map(giveaway => (
             <>
             <ThemedView key={giveaway.id} style={styles.cards}>
-              <ThemedText key={giveaway.title} style={styles.text}>
+              <ThemedText style={styles.text}>
                 {giveaway.title}
               </ThemedText>  
               <Image source={{ uri: giveaway.thumbnail }} style={styles.cardImage} key={giveaway.thumbnail} />
@@ -147,7 +151,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 13,
     marginBottom: 10,
     display: 'flex',
     flexDirection: 'row',
