@@ -94,8 +94,7 @@ export default function HomeScreen() {
   const startDate = '2024-10-11 12:14:19';
   const endDate = '2024-11-30 23:59:00';
   const difference = calculateTimeDifference(startDate, endDate);
-  console.log(`Difference: ${difference.days} days, ${difference.hours} hours, ${difference.minutes} minutes, and ${difference.seconds} seconds.`);
-  
+  //will be used in future versions to calculate time left for respective giveaways.
 
   const [prices,setPrices] = useState(0)
   const [worth,setWorth] = useState(0)
