@@ -106,16 +106,13 @@ export default function HomeScreen() {
       try{
         const worthResponse = await fetch(url);
         const worthRes = await worthResponse.json();
-        
-        console.log(worthRes)
-
         const worthness = worthRes.active_giveaways_number
         const worthPrices = worthRes.worth_estimation_usd      
         setPrices(worthness)
         setWorth(worthPrices)
       }
       catch(e){
-        console.log("couldnt fetch prices")
+        Alert.alert("couldnt fetch prices")
       }
   }
 
@@ -124,9 +121,8 @@ export default function HomeScreen() {
 
   }),([])
   useEffect(() => {
-    console.log('Active Giveaways:', prices);
-    console.log('Worth Estimation (USD):', worth);
-  }, [prices, worth]); // Log when prices or worth change
+    //affects when prices and worth variables are going to change.
+  }, [prices, worth]); 
 
 
     const [isLoading, setIsLoading] = useState(true);
