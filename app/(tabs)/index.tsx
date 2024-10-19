@@ -12,8 +12,6 @@ import { Skeleton } from '@rneui/base';
 import { SafeAreaView } from 'react-native-safe-area-context';
  
 
-
-
 const NOTIFICATIONS = async() => {
 
     await notifee.createChannel({
@@ -29,7 +27,7 @@ const NOTIFICATIONS = async() => {
     await notifee.createTriggerNotification(
       {
         title: 'FRAPP',
-        body: 'Check out todays giveaways.',
+        body: 'Check out todays giveaways.You would not wanna miss out.',
         android: {
           channelId: 'default',
         },
@@ -65,13 +63,76 @@ interface Giveaway {
   open_giveaway_url : string; 
   open_giveaway:string;
   worth:string;
+  end_date:string;
 }
 
 export default function HomeScreen() {
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [giveaways, setGiveaways] = useState<Giveaway[]>([]); // Define state with type
-  const url = 'https://corsproxy.io/?https://www.gamerpower.com/api/giveaways';
+  const calculateTimeDifference = (startDate: string, endDate: string): { days: number; hours: number; minutes: number; seconds: number } => {
+    // Convert the date strings into Date objects
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+  
+    // Calculate the difference in milliseconds
+    const differenceInMilliseconds = end.getTime() - start.getTime();
+  
+    // Calculate time units
+    const seconds = Math.floor((differenceInMilliseconds / 1000) % 60);
+    const minutes = Math.floor((differenceInMilliseconds / (1000 * 60)) % 60);
+    const hours = Math.floor((differenceInMilliseconds / (1000 * 60 * 60)) % 24);
+    const days = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+  
+    return {
+      days,
+      hours,
+      minutes,
+      seconds,
+    };
+  };
+  
+  // Example usage
+  const startDate = '2024-10-11 12:14:19';
+  const endDate = '2024-11-30 23:59:00';
+  const difference = calculateTimeDifference(startDate, endDate);
+  console.log(`Difference: ${difference.days} days, ${difference.hours} hours, ${difference.minutes} minutes, and ${difference.seconds} seconds.`);
+  
+
+  const [prices,setPrices] = useState(0)
+  const [worth,setWorth] = useState(0)
+
+  const checkWorth = async ()=>{
+
+      const url = 'https://corsproxy.io/?https://www.gamerpower.com/api/worth'
+      
+      try{
+        const worthResponse = await fetch(url);
+        const worthRes = await worthResponse.json();
+        
+        console.log(worthRes)
+
+        const worthness = worthRes.active_giveaways_number
+        const worthPrices = worthRes.worth_estimation_usd      
+        setPrices(worthness)
+        setWorth(worthPrices)
+      }
+      catch(e){
+        console.log("couldnt fetch prices")
+      }
+  }
+
+  useEffect(()=>{
+    checkWorth()
+
+  }),([])
+  useEffect(() => {
+    console.log('Active Giveaways:', prices);
+    console.log('Worth Estimation (USD):', worth);
+  }, [prices, worth]); // Log when prices or worth change
+
+
+    const [isLoading, setIsLoading] = useState(true);
+    const [giveaways, setGiveaways] = useState<Giveaway[]>([]); // Define state with type
+    const url = 'https://corsproxy.io/?https://www.gamerpower.com/api/giveaways';
 
   
 
@@ -104,6 +165,18 @@ export default function HomeScreen() {
       </SafeAreaView>
       
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
+
+      {isLoading ? (<>
+            <Skeleton animation="wave" style={styles.skeletonImage2}/>
+            <Skeleton animation="wave" style={styles.skeletonImage2}/>
+        </>  
+        ):(
+          <ThemedView style={styles.container}>
+            <ThemedText style={styles.text1}>Active Number of Giveaways today : <ThemedText style={styles.themeTexts}>{prices}</ThemedText>.</ThemedText>
+            <ThemedText style={styles.text1}>Total Prices of Giveaways : <ThemedText style={styles.themeTexts}>${worth}</ThemedText>.</ThemedText>  
+          </ThemedView>
+        )
+      }
         {isLoading ? (
             <>
               <Skeleton animation="wave" style={styles.skeletonImage}/>
@@ -115,25 +188,35 @@ export default function HomeScreen() {
             </>
         ) : (
           giveaways.map(giveaway => (
-            <>
+
             <ThemedView key={giveaway.id} style={styles.cards}>
-              <ThemedText style={styles.text}>
+              <ThemedText style={styles.text1}>
                 {giveaway.title}
               </ThemedText>  
-              <Image source={{ uri: giveaway.thumbnail }} style={styles.cardImage} key={giveaway.thumbnail} />
               <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-              <ThemedText style={styles.giveawayText} key={giveaway.description}>
+              <Image source={{ uri: giveaway.thumbnail }} style={styles.cardImage}/>
+              <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
+              <ThemedText style={styles.giveawayText}>
                 {giveaway.description}
               </ThemedText>
-              <ThemedText style={styles.worth} key={giveaway.worth}>
-                {giveaway.worth}
               <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
+              <ThemedText style={styles.giveawayText}>Original Price : <ThemedText style={styles.themeTexts2}>
+                {giveaway.worth}
               </ThemedText>
+              </ThemedText>
+
+                <ThemedText style={styles.giveawayText}>
+                  Current Price : <ThemedText style={styles.themeTexts}>0.00$</ThemedText>
+                </ThemedText>
+              
+              <ThemedText style={styles.giveawayText}>
+                Ends on : {giveaway.end_date}
+              </ThemedText>
+              <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
                 <Button mode="contained"
                   onPress={() => Linking.openURL(giveaway.open_giveaway_url || giveaway.open_giveaway)}
-                  key={giveaway.open_giveaway_url || giveaway.open_giveaway}>Get Giveaway</Button>
+              >Get Giveaway</Button>
             </ThemedView>
-            </>
           ))
         )}
       </ScrollView>
@@ -158,6 +241,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     padding:5,
+    gap:3,
+  },
+  text1: {
+    color: 'white',
+    fontFamily: 'sans-serif',
+    fontWeight: 'bold',
+    fontSize: 15,
+    padding:3,
+    gap:3,
+  },
+  themeTexts: {
+    color: '#00FF00',
+    fontFamily: 'sans-serif',
+    fontWeight: 'bold',
+    fontSize: 15,
+    padding:3,
+    gap:3,
+  },
+  themeTexts2: {
+    color: 'red',
+    fontFamily: 'sans-serif',
+    fontWeight: 'bold',
+    textDecorationLine:'line-through',
+    fontSize: 15,
+    padding:3,
     gap:3,
   },
   skeletonImage:{
@@ -190,10 +298,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
-  worth:{
-    textDecorationLine:'line-through',
-    color:'white',
-  },
   icons: {
     marginBottom: 4,
     fontSize:21,
@@ -205,7 +309,6 @@ const styles = StyleSheet.create({
   giveawayText: {
     color: 'white',
     fontSize: 16,
-    marginBottom: 10,
   },
   thumbnail: {
     width: 50,

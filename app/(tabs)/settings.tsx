@@ -5,8 +5,23 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Button } from 'react-native-paper';
 import { Linking } from 'react-native';
+import { Alert } from 'react-native';
 
 export default function HomeScreen() {
+
+
+  const openNotificationSettings = async () => {
+    const url =
+      Platform.OS === 'ios'
+        ? 'app-settings:' // For iOS
+        : 'android.settings.APP_NOTIFICATION_SETTINGS'; // For Android 
+  
+    try {
+      await Linking.openURL(url);
+    } catch (error) {
+      Alert.alert('Error', 'Unable to open settings');
+    }
+  };
   return (
       <ThemedView style={styles.stepContainer}>
         <ThemedText style={styles.text}>
@@ -18,6 +33,13 @@ export default function HomeScreen() {
           <Button mode="contained"
                   onPress={() => Linking.openURL('https://github.com/Brianali-codes/FRAPP')}
           >Star Us</Button>
+          <Button mode="contained"
+                  onPress={openNotificationSettings}
+          >Change notification settings</Button>
+
+          <ThemedText style={styles.text}>This Project is made and maintained by an individual therefore any act of support is appreciated, The project is also open source therefore any person(s) can contribute to maintain as well as formulate new ideas regarding the project.</ThemedText>
+
+
         </ScrollView>
         
         
@@ -41,12 +63,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
-    fontSize: 13,
-    marginBottom: 10,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
+    fontSize: 15,
     padding:5,
     gap:5,
   },

@@ -7,6 +7,7 @@ import { Button } from 'react-native-paper';
 import { Linking } from 'react-native';
 import { Skeleton } from '@rneui/themed';
 import { Alert } from 'react-native';
+import React from 'react';
 //initital type highliting for better error handling thanks to typescript.
 
 interface Giveaway {
@@ -48,7 +49,7 @@ export default function HomeScreen() {
   return (
     <ThemedView style={styles.container}>
       <ThemedText style={styles.text}>
-        <TabBarIcon name={'gift-sharp'} style={styles.icons}/>
+        <TabBarIcon name={'game-controller'} style={styles.icons}/>
         FREE GAMES
       </ThemedText>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -63,21 +64,23 @@ export default function HomeScreen() {
             </>
         ) : (
           giveaways.map(giveaway => (
-            <>
-            
-            <ThemedView key={giveaway.id} style={styles.cards}>
-              <ThemedText style={styles.text} >
-                {giveaway.title}
-              </ThemedText>  
-              <Image source={{ uri: giveaway.thumbnail }} style={styles.cardImage} />
-              <ThemedText style={styles.giveawayText}>
-                {giveaway.short_description}
-              </ThemedText>
-                <Button mode="contained"
+            <React.Fragment key={giveaway.id}>
+              <ThemedView style={styles.cards}>
+                <ThemedText style={styles.text}>
+                  {giveaway.title}
+                </ThemedText>  
+                <Image source={{ uri: giveaway.thumbnail }} style={styles.cardImage} />
+                <ThemedText style={styles.giveawayText}>
+                  {giveaway.short_description}
+                </ThemedText>
+                <Button 
+                  mode="contained" 
                   onPress={() => Linking.openURL(giveaway.game_url)}
-                >Get Game for free</Button>
-            </ThemedView>
-            </>
+                >
+                  Get Game for free
+                </Button>
+              </ThemedView>
+            </React.Fragment>
           ))
         )}
       </ScrollView>
@@ -139,8 +142,8 @@ const styles = StyleSheet.create({
     color:'white',
   },
   icons: {
-    marginBottom: 4,
-    fontSize:21,
+    marginBottom: 2,
+    fontSize:18,
   },
   scrollViewContent: {
     paddingBottom: 20, 
