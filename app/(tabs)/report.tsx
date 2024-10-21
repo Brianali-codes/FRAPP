@@ -85,12 +85,6 @@ export default function HomeScreen() {
             </Button>
             <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
             <ThemedText style={styles.text2}>This Project utilizes the gamepower Api as well as the Free To Game Api for fetching data and dynamically providing it to the user who downloaded the app. this is to declare that none of these APis belong to me as well as FRAPP.</ThemedText>
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-            <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
-
-
         </ScrollView>
       </ThemedView>
     

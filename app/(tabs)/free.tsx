@@ -3,7 +3,7 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { useState, useEffect } from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Button } from 'react-native-paper';
+import { Button, Divider } from 'react-native-paper';
 import { Linking } from 'react-native';
 import { Skeleton } from '@rneui/themed';
 import { Alert } from 'react-native';
@@ -20,12 +20,15 @@ interface Giveaway {
   open_giveaway:string;
   worth:string;
   game_url:string;
+  genre:string;
+  publisher:string;
 }
 
 export default function HomeScreen() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [giveaways, setGiveaways] = useState<Giveaway[]>([]); // Define state with type
+
   const url = 'https://corsproxy.io/?https://www.freetogame.com/api/games';
 
   const fetchData = async () => {
@@ -73,6 +76,9 @@ export default function HomeScreen() {
                 <ThemedText style={styles.giveawayText}>
                   {giveaway.short_description}
                 </ThemedText>
+                <ThemedText style={styles.giveawayText}>Genre: <ThemedText style={styles.themeTexts}>{giveaway.genre}</ThemedText></ThemedText>
+                  <ThemedText style={styles.giveawayText}>Publisher: <ThemedText style={styles.themeTexts}>{giveaway.publisher}</ThemedText></ThemedText>
+                  <Divider style={{ marginVertical: 10, height: 1, backgroundColor: 'transparent' }} />
                 <Button 
                   mode="contained" 
                   onPress={() => Linking.openURL(giveaway.game_url)}
@@ -106,6 +112,14 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     padding:5,
     gap:5,
+  },
+  themeTexts: {
+    color: '#00FF00',
+    fontFamily: 'sans-serif',
+    fontWeight: 'bold',
+    fontSize: 15,
+    padding:3,
+    gap:3,
   },
   skeletonImage:{
     width:'100%',

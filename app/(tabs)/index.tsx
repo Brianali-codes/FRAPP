@@ -10,7 +10,6 @@ import notifee, { AndroidImportance, TriggerType,AuthorizationStatus } from '@no
 import { Divider } from 'react-native-elements';
 import { Skeleton } from '@rneui/base';
 import { SafeAreaView } from 'react-native-safe-area-context';
- 
 
 const NOTIFICATIONS = async() => {
 
@@ -21,9 +20,9 @@ const NOTIFICATIONS = async() => {
     });
 
     const now = new Date();
-    const nextTriggerTime = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 9, 0, 0); // Set to 9 AM the next day
+    const nextTriggerTime = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 9, 0, 0);
 
-    // Schedule the notification
+    //this schedules the notification for specific times that are ruled out
     await notifee.createTriggerNotification(
       {
         title: 'FRAPP',

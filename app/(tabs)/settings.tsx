@@ -3,7 +3,7 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { ScrollView } from 'react-native-gesture-handler';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Button } from 'react-native-paper';
+import { Button, Divider } from 'react-native-paper';
 import { Linking } from 'react-native';
 import { Alert } from 'react-native';
 
@@ -38,7 +38,12 @@ export default function HomeScreen() {
           >Change notification settings</Button>
 
           <ThemedText style={styles.text}>This Project is made and maintained by an individual therefore any act of support is appreciated, The project is also open source therefore any person(s) can contribute to maintain as well as formulate new ideas regarding the project.</ThemedText>
-
+          <Divider/>
+          <ThemedText style={styles.text}>In order to view the official site for the API provider (Gamepower api) who provides all games in the app you can find them by clicking the button below.</ThemedText>
+          
+          <Button mode="contained"
+                  onPress={() => Linking.openURL('https://www.gamerpower.com/')}
+          >Go to Gamepower.com</Button>
 
         </ScrollView>
         
@@ -73,7 +78,6 @@ const styles = StyleSheet.create({
     backgroundColor:'#1b2838',
   },
   icons: {
-    marginBottom: 4,
-    fontSize:21,
+    fontSize:18,
   },
 });
